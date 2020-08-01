@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './transactions.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(PEApp());
 
@@ -32,7 +33,7 @@ class PEHomePage extends StatelessWidget {
         title: Text('Expenses Tracker'),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+       // crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -55,50 +56,53 @@ class PEHomePage extends StatelessWidget {
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: transactions.map((tx) {
               return Container(
                   width: double.infinity,
-                  height: 80,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      color: Colors.black,
-                      shadowColor: Colors.red,
-                      margin: EdgeInsets.all(5),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                        Container(
-                          color: Colors.green,
-                          margin: EdgeInsets.all(5),
-                          padding: EdgeInsets.all(5),
-                          alignment: Alignment.centerLeft,
+                  height: 50,
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: Card(
+                    shadowColor: Colors.grey[200],   
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.green,
+                            width: 1,
+                          )
+                        ),
+                       // margin: EdgeInsets.all(5),
+                       // padding: EdgeInsets.all(5),
+                       // alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
                           child: Text(
-                            tx.amt.toString(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                             '\$' + tx.amt.toString(),
+                          //  textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.green, fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                tx.name,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white, fontSize: 18),
-                              ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              tx.name,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            Container(
-                                child: Text(tx.id,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white)))
-                          ],
-                        )
-                      ]),
-                    ),
+                          ),
+                          Container(
+                              child: Text(DateFormat().add_yMMMd().format(tx.date),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.grey),
+                              ))],
+                      )
+                    ]),
                   ));
             }).toList(),
           )
