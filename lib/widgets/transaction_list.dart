@@ -29,7 +29,7 @@ class TransactionList extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
-                                '\$' + tx.amt.toString(),
+                                '\$' + tx.amt.toStringAsFixed(2),
                                 //  textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.green,
