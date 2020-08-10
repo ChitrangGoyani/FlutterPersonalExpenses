@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expenses/widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
-
+import './widgets/charts.dart';
 import './models/transactions.dart';
 import 'dart:math';
 
@@ -22,19 +22,25 @@ class PEHomePage extends StatefulWidget {
 class _PEHomePageState extends State<PEHomePage> {
 
    final List<Transaction> _userTransactions = [
-     Transaction(
-        id: '001',
-        name: 'Shoes',
-        amt: 59.99,
-        date: DateTime.now(),
-      ),
-      Transaction(
-        id: '002',
-        name: 'Groceries',
-        amt: 16.99,
-        date: DateTime.now(),
-      )
+    //  Transaction(
+    //     id: '001',
+    //     name: 'Shoes',
+    //     amt: 59.99,
+    //     date: DateTime.now(),
+    //   ),
+    //   Transaction(
+    //     id: '002',
+    //     name: 'Groceries',
+    //     amt: 16.99,
+    //     date: DateTime.now(),
+    //   )
   ];
+
+  List<Transaction> get _recentTransactions{
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
   Random random = new Random();
   void _addNewTransactions(String txTitle, double txAmt){
     final newTx = Transaction(name: txTitle, amt: txAmt, date: DateTime.now(), id: random.nextInt(100).toString());
@@ -62,26 +68,7 @@ class _PEHomePageState extends State<PEHomePage> {
       body: SingleChildScrollView(
               child: Column(
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 100.0,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Card(
-                  color: Colors.black,
-                  elevation: 5,
-                  margin: EdgeInsets.all(10),
-                  shadowColor: Colors.red,
-                  child: Center(
-                    child: Text(
-                      'Charts',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            Charts(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),
