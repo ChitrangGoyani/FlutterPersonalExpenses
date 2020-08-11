@@ -42,8 +42,8 @@ class _PEHomePageState extends State<PEHomePage> {
     }).toList();
   }
   Random random = new Random();
-  void _addNewTransactions(String txTitle, double txAmt){
-    final newTx = Transaction(name: txTitle, amt: txAmt, date: DateTime.now(), id: random.nextInt(100).toString());
+  void _addNewTransactions(String txTitle, double txAmt, DateTime chosenDate){
+    final newTx = Transaction(name: txTitle, amt: txAmt, date: chosenDate, id: random.nextInt(100).toString());
     setState(() {
       _userTransactions.add(newTx);
     });
